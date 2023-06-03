@@ -9,32 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.SignalR.Client.Core">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.AspNetCore.SignalR.Client.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Features">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.Extensions.Features.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="SignalR.Strong">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\SignalR.Strong.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="7.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="SkyFrost.Base">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\SkyFrost.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Pipelines">
-      <HintPath>..\..\OneDrive\Desktop\Windows\Durian_Data\Managed\System.IO.Pipelines.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\windows\Durian_Data\Managed\SkyFrost.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
 

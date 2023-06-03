@@ -30,15 +30,6 @@ namespace EverChat
             SkyFrostConfig _skyFrostConfig = SkyFrostConfig.EVERION_TEST;
             _cloud = new SkyFrostInterface(null, _skyFrostConfig);
 
-  /*          Task.Run(async () =>
-            {
-                for (; ; )
-                {
-                    Task.Delay(5000).Wait();
-                    _cloud.Update();
-                }
-            }); */
-
             _form1 = new Form1();
             Application.Run(_form1);
 
