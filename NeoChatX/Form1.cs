@@ -306,9 +306,9 @@ namespace EverChat
                 }
                 if (Program._cloud.Messages.GetUserMessages(friend._contact.ContactUserId).UnreadCount > 0)
                 {
-                    var unreadbrush = new SolidBrush(Color.Blue);
+                    var unreadbrush = new SolidBrush(Color.Orange);
                     Font unreadFont = new Font(e.Font, FontStyle.Bold);
-                    e.Graphics.DrawString(friend._contact.ContactUsername, unreadFont, unreadbrush, e.Bounds);
+                    e.Graphics.DrawString("* " + friend._contact.ContactUsername, unreadFont, unreadbrush, e.Bounds);
                 }
                 else
                 {
