@@ -9,7 +9,7 @@ namespace EverChat
     internal static class Program
     {
         public static SkyFrostInterface _cloud;
-        public static String machineId = Guid.NewGuid().ToString();
+        public static String machineId;
         public static Login _login = new Login();
         public static Form1 _form1;
         public static bool friendsLoaded = false;
@@ -28,7 +28,9 @@ namespace EverChat
             ApplicationConfiguration.Initialize();
 
             SkyFrostConfig _skyFrostConfig = SkyFrostConfig.EVERION_TEST;
-            _cloud = new SkyFrostInterface(null, _skyFrostConfig);
+            machineId = CryptoHelper.GenerateCryptoToken();
+            string uid = CryptoHelper.HashIDToToken(machineId);
+            _cloud = new SkyFrostInterface(uid, _skyFrostConfig);
 
             _form1 = new Form1();
             Application.Run(_form1);
@@ -95,7 +97,7 @@ namespace EverChat
             {
                 _otp = null;
             }
-            var result = await _cloud.Session.Login(user, pass, null, machineId, false, null, _otp);
+            var result = await _cloud.Session.Login(user, (LoginAuthentication)new PasswordLogin(pass), machineId, false, _otp);
             if (result.IsOK)
             {
                 _userSession = result.Entity;
