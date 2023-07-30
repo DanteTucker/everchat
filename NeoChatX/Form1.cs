@@ -138,19 +138,23 @@ namespace EverChat
             }
             else
             {
-                var f = _friendB.Where(x => x._contact.ContactUserId == a.UserId).First();
-                var i = _friendB.IndexOf(f);
-                int savedTopIndex = _friendsList.TopIndex;
-                if (a.Contact.ContactStatus == ContactStatus.Accepted && a.Contact.IsMigrated)
-                {
-                    if (a.CurrentStatus.OnlineStatus != null && a.CurrentStatus.OnlineStatus != _friendB[i]._data.PreviousStatus.OnlineStatus)
+                try
+                { 
+                    var f = _friendB.Where(x => x._contact.ContactUserId == a.UserId).First();
+                    var i = _friendB.IndexOf(f);
+                    int savedTopIndex = _friendsList.TopIndex;
+                    if (a.Contact.ContactStatus == ContactStatus.Accepted && a.Contact.IsMigrated)
                     {
-                        _friendB[i]._data = a;
-                        UpdateFriendsList();     
+                        if (a.CurrentStatus.OnlineStatus != null && a.CurrentStatus.OnlineStatus != _friendB[i]._data.PreviousStatus.OnlineStatus)
+                        {
+                            _friendB[i]._data = a;
+                            UpdateFriendsList();
+                        }
+                        Task.Run((Func<Task>)(async () => await Program._cloud.HubClient.BroadcastStatus(Program.status, BroadcastTarget.ToContact(a.Contact.ContactUserId)).ConfigureAwait(false)));
                     }
-                    Task.Run((Func<Task>)(async () => await Program._cloud.HubClient.BroadcastStatus(Program.status, BroadcastTarget.ToContact(a.Contact.ContactUserId)).ConfigureAwait(false)));
+                    _friendsList.TopIndex = savedTopIndex;
                 }
-                _friendsList.TopIndex = savedTopIndex;
+                catch { }
             }
         }
 

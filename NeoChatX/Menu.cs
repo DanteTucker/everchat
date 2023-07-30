@@ -65,7 +65,7 @@ namespace EverChat
         private void AboutMenuItem_Click(object sender, EventArgs e)
         {
             // Implement the About menu item click event logic here
-            MessageBox.Show("EverChat 1.1" + Environment.NewLine + "Created by Dante");
+            MessageBox.Show("EverChat 1.3" + Environment.NewLine + "Created by Dante");
         }
 
         private void QuitMenuItem_Click(object sender, EventArgs e)

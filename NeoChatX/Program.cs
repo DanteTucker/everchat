@@ -27,7 +27,7 @@ namespace EverChat
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            SkyFrostConfig _skyFrostConfig = SkyFrostConfig.EVERION_TEST;
+            SkyFrostConfig _skyFrostConfig = SkyFrostConfig.DEFAULT_PRODUCTION;
             machineId = CryptoHelper.GenerateCryptoToken();
             string uid = CryptoHelper.HashIDToToken(machineId);
             _cloud = new SkyFrostInterface(uid, _skyFrostConfig);
@@ -59,6 +59,7 @@ namespace EverChat
             {
                 status.UserSessionId = _cloud.Status.UserSessionId;
                 status.OnlineStatus = Form1.currentStatus;
+                status.SessionType = UserSessionType.ChatClient;
                 status.Sessions = new List<UserSessionMetadata>();
                 status.IsPresent = true;
                 status.LastStatusChange = DateTime.Now;
@@ -68,6 +69,7 @@ namespace EverChat
             {
                 status.UserSessionId = _cloud.Status.UserSessionId;
                 status.OnlineStatus = new OnlineStatus?(OnlineStatus.Offline);
+                status.SessionType = UserSessionType.ChatClient;
                 status.IsPresent = false;
                 //status.Sessions.Clear();
                 status.CurrentSessionIndex = -1;
