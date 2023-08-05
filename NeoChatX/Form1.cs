@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace EverChat
 {
@@ -25,6 +26,32 @@ namespace EverChat
         private Panel loadingSplash;
 
         public event ContactsLoaded OnContactsLoaded;
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
+
+        [Flags]
+        public enum FlashWindowFlags : uint
+        {
+            FLASHW_STOP = 0,
+            FLASHW_CAPTION = 0x00000001,
+            FLASHW_TRAY = 0x00000002,
+            FLASHW_ALL = (FLASHW_CAPTION | FLASHW_TRAY),
+            FLASHW_TIMER = 0x00000004,
+            FLASHW_TIMERNOFG = 0x0000000C
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct FLASHWINFO
+        {
+            public uint cbSize;
+            public IntPtr hwnd;
+            public FlashWindowFlags dwFlags;
+            public uint uCount;
+            public uint dwTimeout;
+        }
+
 
         public async void LoadFriends()
         {
@@ -54,7 +81,7 @@ namespace EverChat
                 Program.friendsLoaded = true;
                 HideLoadingSplash();
                 Program._cloud.Contacts.ContactStatusChanged += UpdateContact;
-                Program._cloud.Messages.OnMessageReceived += Form1.On_message;
+                Program._cloud.Messages.OnMessageReceived += On_message;
             }
         }
 
@@ -267,14 +294,25 @@ namespace EverChat
             }
         }
 
-        public static void On_message(SkyFrost.Base.Message msg)       
+        public void On_message(SkyFrost.Base.Message msg)       
         {
-            if (msg.SenderId == _friend._contact.ContactUserId)
+            if (_friendsList.InvokeRequired)
             {
-                AddHistory(msg);
-                Program._cloud.Messages.GetUserMessages(_friend._contact.ContactUserId).MarkAllRead();
+                _friendsList.Invoke(new Action<SkyFrost.Base.Message>(On_message), msg);
             }
-            UpdateFriendsList();
+            else
+            {
+                if (msg.SenderId == _friend._contact.ContactUserId)
+                {
+                    AddHistory(msg);
+                    Program._cloud.Messages.GetUserMessages(_friend._contact.ContactUserId).MarkAllRead();
+                }
+                UpdateFriendsList();
+                if (!this.Focused)
+                {
+                    FlashTaskbarIcon();
+                }
+            }
         }
 
         private void FriendsList_DrawItem(object sender, DrawItemEventArgs e)
@@ -423,6 +461,20 @@ namespace EverChat
             this.Controls.Add(_menu.menuStrip);
 
             this.FormClosing += Program.Form1_FormClosing;
+        }
+
+        public static void FlashTaskbarIcon()
+        {
+            FLASHWINFO flashInfo = new FLASHWINFO
+            {
+                cbSize = (uint)Marshal.SizeOf(typeof(FLASHWINFO)),
+                hwnd = Program._form1.Handle,
+                dwFlags = FlashWindowFlags.FLASHW_ALL | FlashWindowFlags.FLASHW_TIMERNOFG,
+                uCount = uint.MaxValue,
+                dwTimeout = 0
+            };
+
+            FlashWindowEx(ref flashInfo);
         }
     }
 }
