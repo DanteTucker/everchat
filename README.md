@@ -6,10 +6,10 @@ Right now it's features include
  - Send Text messages.
  -  Receive text, voice messages and Invites.
  - Set your status, online or invisible.
+ - Persistent settings
 
 Some notes:
 
- - You log on as invisible by default, set yourself online in the Status menu.
  - Voice messages received before migration don't work.
 ## Get it
 You can find a pre compiled version in the Release tab near the top of this page.
