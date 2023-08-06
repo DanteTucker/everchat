@@ -16,6 +16,7 @@ namespace EverChat
         public static UserSession _userSession = new UserSession();
         public static string statussession;
         public static UserStatus status = new UserStatus();
+        public static SettingsManager settings = new SettingsManager();
 
         /// <summary>
         ///  The main entry point for the application.
@@ -105,7 +106,6 @@ namespace EverChat
                 _userSession = result.Entity;
                 UpdateTitleBar();
                 _login.Visible = false;
-                Form1.currentStatus = OnlineStatus.Invisible;
                 UpdateOnlineStatus();
                 _form1.LoadFriends();
             } else

@@ -12,6 +12,9 @@ namespace EverChat
         public MenuStrip menuStrip = new MenuStrip();
         public Menu() 
         {
+            ToolStripMenuItem settingsMenuItem = new ToolStripMenuItem("Settings");
+            settingsMenuItem.Click += SettingsMenuItem_Click;
+
             ToolStripMenuItem aboutMenuItem = new ToolStripMenuItem("About");
             aboutMenuItem.Click += AboutMenuItem_Click;
 
@@ -19,7 +22,7 @@ namespace EverChat
             quitMenuItem.Click += QuitMenuItem_Click;
 
             ToolStripMenuItem menuDropDown = new ToolStripMenuItem("Menu");
-            menuDropDown.DropDownItems.AddRange(new ToolStripItem[] { aboutMenuItem, quitMenuItem });
+            menuDropDown.DropDownItems.AddRange(new ToolStripItem[] { settingsMenuItem, aboutMenuItem, quitMenuItem });
 
             ToolStripMenuItem onlineMenuItem = new ToolStripMenuItem("Online");
             onlineMenuItem.Tag = "Online";
@@ -53,6 +56,14 @@ namespace EverChat
 
         }
 
+        private void SettingsMenuItem_Click(object? sender, EventArgs e)
+        {
+            using (SettingsForm settingsForm = new SettingsForm())
+            {
+                settingsForm.ShowDialog();
+            }
+        }
+
         private void RefreshMenuItem_Click(object sender, EventArgs e)
         {
             Form1._friendB.Clear();
@@ -65,7 +76,7 @@ namespace EverChat
         private void AboutMenuItem_Click(object sender, EventArgs e)
         {
             // Implement the About menu item click event logic here
-            MessageBox.Show("EverChat 1.4" + Environment.NewLine + "Created by Dante");
+            MessageBox.Show("EverChat 1.5" + Environment.NewLine + "Created by Dante");
         }
 
         private void QuitMenuItem_Click(object sender, EventArgs e)
