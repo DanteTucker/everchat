@@ -1,16 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace EverChat // Replace with your namespace
+namespace EverChat 
 {
     public class SettingsManager
     {
-        private Dictionary<string, object> settingsDictionary;
-
+        private JObject settingsObject;
         private readonly string settingsFilePath;
 
         public SettingsManager()
@@ -27,33 +24,32 @@ namespace EverChat // Replace with your namespace
                 if (File.Exists(settingsFilePath))
                 {
                     string json = File.ReadAllText(settingsFilePath);
-                    settingsDictionary = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+                    settingsObject = JObject.Parse(json);
                 }
                 else
                 {
-                    settingsDictionary = new Dictionary<string, object>();
+                    settingsObject = new JObject();
                     InitializeDefaultSettings();
                 }
             }
             catch (Exception ex)
             {
                 // Handle exceptions during settings loading
-                MessageBox.Show("An error occurred while loading settings: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("An error occurred while loading settings: " + ex.Message);
             }
         }
 
         private void InitializeDefaultSettings()
         {
-            // Initialize default settings here
-            settingsDictionary["StartInvisible"] = true;
-            settingsDictionary["Notify"] = true;
+            settingsObject["StartInvisible"] = true;
+            settingsObject["Notify"] = true;
         }
 
         public T GetSetting<T>(string key, T defaultValue = default)
         {
-            if (settingsDictionary.ContainsKey(key))
+            if (settingsObject.ContainsKey(key))
             {
-                return (T)settingsDictionary[key];
+                return settingsObject[key].ToObject<T>();
             }
 
             return defaultValue;
@@ -61,21 +57,21 @@ namespace EverChat // Replace with your namespace
 
         public void SetSetting<T>(string key, T value)
         {
-            settingsDictionary[key] = value;
+            settingsObject[key] = JToken.FromObject(value);
         }
 
         public void SaveSettings()
         {
             try
             {
-                string settingsJson = JsonSerializer.Serialize(settingsDictionary);
+                string settingsJson = settingsObject.ToString();
                 Directory.CreateDirectory(Path.GetDirectoryName(settingsFilePath));
-                File.WriteAllText(settingsFilePath, settingsJson, Encoding.UTF8);
+                File.WriteAllText(settingsFilePath, settingsJson);
             }
             catch (Exception ex)
             {
                 // Handle exceptions during settings saving
-                MessageBox.Show("An error occurred while saving settings: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("An error occurred while saving settings: " + ex.Message);
             }
         }
     }

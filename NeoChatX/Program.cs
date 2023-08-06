@@ -106,7 +106,6 @@ namespace EverChat
                 _userSession = result.Entity;
                 UpdateTitleBar();
                 _login.Visible = false;
-                Form1.currentStatus = OnlineStatus.Invisible;
                 UpdateOnlineStatus();
                 _form1.LoadFriends();
             } else
