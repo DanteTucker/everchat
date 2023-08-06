@@ -82,6 +82,11 @@ namespace EverChat
                 HideLoadingSplash();
                 Program._cloud.Contacts.ContactStatusChanged += UpdateContact;
                 Program._cloud.Messages.OnMessageReceived += On_message;
+
+                bool startInvisible = Program.settings.GetSetting<bool>("StartInvisible", true);
+                Form1.currentStatus = startInvisible ? OnlineStatus.Invisible : OnlineStatus.Online;
+                Program.UpdateOnlineStatus();
+                Program.UpdateTitleBar();
             }
         }
 
@@ -308,7 +313,7 @@ namespace EverChat
                     Program._cloud.Messages.GetUserMessages(_friend._contact.ContactUserId).MarkAllRead();
                 }
                 UpdateFriendsList();
-                if (!this.Focused)
+                if (!this.Focused && Program.settings.GetSetting<bool>("Notify", true))
                 {
                     FlashTaskbarIcon();
                 }
