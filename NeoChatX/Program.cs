@@ -3,6 +3,8 @@ using Microsoft.VisualBasic.ApplicationServices;
 using System.Text.RegularExpressions;
 using SkyFrost.Base;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
+using System;
 
 namespace EverChat
 {
@@ -100,10 +102,11 @@ namespace EverChat
             {
                 _otp = null;
             }
-            var result = await _cloud.Session.Login(user, (LoginAuthentication)new PasswordLogin(pass), machineId, false, _otp);
+
+            CloudResult result = await _cloud.Session.Login(user, (LoginAuthentication)new PasswordLogin(pass), machineId, false, _otp);
             if (result.IsOK)
             {
-                _userSession = result.Entity;
+                //_userSession = result.Content;
                 UpdateTitleBar();
                 _login.Visible = false;
                 UpdateOnlineStatus();

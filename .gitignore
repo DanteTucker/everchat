@@ -3,3 +3,4 @@ obj/
 .vs/
 NeoChatX/Properties/PublishProfiles/FolderProfile.pubxml.user
 NeoChatX/EverChat.csproj.user
+/NeoChatX/EverChat.csproj.user

@@ -36,7 +36,6 @@
             label3 = new Label();
             loginButton = new Button();
             indicator = new Label();
-            label5 = new Label();
             SuspendLayout();
             // 
             // tUsername
@@ -106,22 +105,11 @@
             indicator.Size = new Size(0, 15);
             indicator.TabIndex = 7;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.ForeColor = Color.Black;
-            label5.Location = new Point(12, 81);
-            label5.Name = "label5";
-            label5.Size = new Size(155, 15);
-            label5.TabIndex = 8;
-            label5.Text = "Prerelease Do Not Distribute";
-            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(340, 101);
-            Controls.Add(label5);
             Controls.Add(indicator);
             Controls.Add(loginButton);
             Controls.Add(label3);
@@ -146,7 +134,6 @@
         private Label label2;
         private Label label3;
         public Button loginButton;
-        private Label label5;
         public Label indicator;
     }
 }
