@@ -17,6 +17,6 @@ You can find a pre compiled version in the Release tab near the top of this page
 ## Compiling
 
  1. Use NuGet to add Microsoft.AspNetCore.SignalR.Common
- 2. Add a reference to Durian_Data\Managed\SkyFrost.Base.dll
+ 2. Add a reference to Resonite_Data\Managed\SkyFrost.Base.dll
  
  If you like, VS's Publish feature can compile it down to a single exe.
