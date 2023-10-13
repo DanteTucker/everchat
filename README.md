@@ -1,3 +1,4 @@
+![Example Image of Everchat](https://storage.googleapis.com/c.cow.zone/everchat.png)
 ## About
 I made this chat thing as a personal project mostly for myself.
 Right now it's features include
