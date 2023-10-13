@@ -74,7 +74,6 @@ namespace EverChat
                 status.OnlineStatus = new OnlineStatus?(OnlineStatus.Offline);
                 status.SessionType = UserSessionType.ChatClient;
                 status.IsPresent = false;
-                //status.Sessions.Clear();
                 status.CurrentSessionIndex = -1;
                 status.LastStatusChange = DateTime.Now;
                 Task.Run((Func<Task>)(async () => await _cloud.HubClient.BroadcastStatus(status, BroadcastTarget.ALL_CONTACTS).ConfigureAwait(false)));
@@ -106,7 +105,6 @@ namespace EverChat
             CloudResult result = await _cloud.Session.Login(user, (LoginAuthentication)new PasswordLogin(pass), machineId, false, _otp);
             if (result.IsOK)
             {
-                //_userSession = result.Content;
                 UpdateTitleBar();
                 _login.Visible = false;
                 UpdateOnlineStatus();

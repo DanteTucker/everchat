@@ -12,8 +12,6 @@ namespace EverChat
         public ContactData _data;
         public Contact _contact;
 
-        //This god damn nonsense is because there is no way to get a single contacts status anymore.
-        //The only way ContactData is exposed is through this ForeachContactData method, absolute shit.
         public ChatContact(Contact a)
         {
             this._contact = a;

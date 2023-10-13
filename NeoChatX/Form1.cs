@@ -146,10 +146,7 @@ namespace EverChat
                     _friendsList.BeginUpdate();
                     _friendB.SortBy("UserStatus", ListSortDirection.Descending);
                     Rectangle visibleArea = new Rectangle(_friendsList.ClientRectangle.Location, _friendsList.ClientSize);
-                    //_friendsList.Invalidate(visibleArea);
                     _friendsList.EndUpdate();
-                    //_friendsList.Update();
-                    //_friendsList.Refresh();
                 }
                 blockupdate = false;
             }
@@ -217,7 +214,6 @@ namespace EverChat
                 }
                 else
                 {
-                    //username = Program._cloud.Contacts.GetContact(msg.SenderId).ContactUsername;
                     username = GetUsername(msg.SenderId);
                 }
 
@@ -267,7 +263,6 @@ namespace EverChat
             {
                 // Clear the friend info and message history if no friend is selected
                 _friendInfo.Clear();
-                //messageHistory.Clear();
             }
             UpdateFriendsList();
         }
@@ -291,10 +286,8 @@ namespace EverChat
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // Enter key is pressed, trigger your custom event here
                 SendMessage();
 
-                // Prevent the Enter key from creating a newline in the text box
                 e.SuppressKeyPress = true;
             }
         }
